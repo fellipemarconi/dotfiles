@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+import os
+import time
+import requests
+from rich.console import Console
+from rich.panel import Panel
+from rich.align import Align
+from rich.text import Text
+from rich.progress import Progress, SpinnerColumn, TextColumn
+
+console = Console()
+MAIN_URL = "https://onbibles.com/api/verses/random?bibleSlug=acf"
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/140.0.2403.157 Safari/537.36",
+    "Accept-Language": "pt-BR, en;q=0.5",
+}
+
+
+def clear():
+    os.system("clear" if os.name == "posix" else "cls")
+
+
+def get_random_verse():
+    try:
+        response = requests.get(MAIN_URL, headers=HEADERS, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        book = data["item"]["bible"]["book"]["name"]
+        chapter = data["item"]["bible"]["book"]["chapter"]["number"]
+        verse_num = data["item"]["bible"]["book"]["chapter"]["verses"][0]["number"]
+        content = data["item"]["bible"]["book"]["chapter"]["verses"][0]["text"]
+        return content.strip(), f"{book} {chapter}:{verse_num}"
+    except Exception as e:
+        console.print(f"[red]Erro:[/] Não foi possível obter o versículo. ({e})")
+        return None, None
+
+
+def main():
+    clear()
+    console.print(
+        Align.center(Text("📖  Versículo Aleatório (ACF)", style="bold cyan")),
+        "\n",
+    )
+
+    while True:
+        console.print("[dim]Pressione [bold cyan]Enter[/] para gerar um versículo, ou [bold red]q[/] para sair.[/dim]")
+        choice = input(" ").strip().lower()
+        if choice == "q":
+            clear()
+            console.print(Align.center("[bold red]Saindo...[/bold red]"))
+            time.sleep(0.6)
+            break
+
+        clear()
+        console.print(Align.center(Text("⏳ Buscando versículo...", style="italic cyan")))
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            transient=True,
+            console=console,
+        ) as progress:
+            progress.add_task(description="Conectando com a API...", total=None)
+            content, ref = get_random_verse()
+
+        clear()
+        if content and ref:
+            verse_text = Text(content, style="bold white")
+            ref_text = Text(ref, style="dim cyan")
+
+            panel = Panel(
+                Align.center(verse_text + "\n\n" + ref_text),
+                border_style="cyan",
+                padding=(1, 3),
+                expand=False,
+            )
+            console.print(Align.center(panel))
+        else:
+            console.print("[red]Erro ao buscar versículo.[/]")
+
+        console.print()
+        time.sleep(0.4)
+
+
+if __name__ == "__main__":
+    main()
+
