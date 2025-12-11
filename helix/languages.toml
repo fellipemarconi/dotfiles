@@ -1,0 +1,267 @@
+# =============================================================================
+# LANGUAGE SERVERS
+# =============================================================================
+
+# Simple Completion Language Server (para snippets)
+[language-server.scls]
+command = "simple-completion-language-server"
+
+[language-server.scls.config]
+max_completion_items = 100
+feature_words = true
+feature_snippets = true
+snippets_first = true
+snippets_inline_by_word_tail = false
+feature_unicode_input = false
+feature_paths = false
+
+[language-server.scls.environment]
+RUST_LOG = "info,simple-completion-language-server=info"
+LOG_FILE = "/tmp/completion.log"
+
+# TypeScript/JavaScript
+[language-server.typescript-language-server]
+command = "typescript-language-server"
+args = ["--stdio"]
+config.hostInfo = "helix"
+
+[language-server.typescript-language-server.config.typescript.inlayHints]
+includeInlayParameterNameHints = "all"
+includeInlayParameterNameHintsWhenArgumentMatchesName = true
+includeInlayFunctionParameterTypeHints = true
+includeInlayVariableTypeHints = true
+includeInlayPropertyDeclarationTypeHints = true
+includeInlayFunctionLikeReturnTypeHints = true
+includeInlayEnumMemberValueHints = true
+
+[language-server.typescript-language-server.config.javascript.inlayHints]
+includeInlayParameterNameHints = "all"
+includeInlayParameterNameHintsWhenArgumentMatchesName = true
+includeInlayFunctionParameterTypeHints = true
+includeInlayVariableTypeHints = true
+includeInlayPropertyDeclarationTypeHints = true
+includeInlayFunctionLikeReturnTypeHints = true
+includeInlayEnumMemberValueHints = true
+
+# ESLint (vem no vscode-langservers-extracted)
+[language-server.eslint]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
+
+[language-server.eslint.config]
+validate = "on"
+experimental = { useFlatConfig = false }
+rulesCustomizations = []
+run = "onType"
+problems = { shortenToSingleLine = false }
+nodePath = ""
+
+[language-server.eslint.config.codeAction]
+disableRuleComment = { enable = true, location = "separateLine" }
+showDocumentation = { enable = true }
+
+# Tailwind CSS
+[language-server.tailwindcss-ls]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
+config = {}
+
+# Svelte
+[language-server.svelteserver]
+command = "svelteserver"
+args = ["--stdio"]
+
+[language-server.svelteserver.config.svelte]
+plugin.svelte.compilerWarnings = { "a11y-no-static-element-interactions" = "ignore" }
+
+# Golang
+[language-server.gopls]
+command = "gopls"
+
+[language-server.gopls.config]
+usePlaceholders = true
+completeUnimported = true
+staticcheck = true
+analyses = { unusedparams = true, shadow = true }
+
+[language-server.gopls.config.hints]
+assignVariableTypes = true
+compositeLiteralFields = true
+compositeLiteralTypes = true
+constantValues = true
+functionTypeParameters = true
+parameterNames = true
+rangeVariableTypes = true
+
+# golangci-lint
+[language-server.golangci-lint-lsp]
+command = "golangci-lint-langserver"
+
+[language-server.golangci-lint-lsp.config]
+command = ["golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1"]
+
+# Python
+[language-server.basedpyright]
+command = "basedpyright-langserver"
+args = ["--stdio"]
+
+[language-server.basedpyright.config.basedpyright.analysis]
+autoSearchPaths = true
+typeCheckingMode = "basic"
+diagnosticMode = "openFilesOnly"
+
+[language-server.ruff]
+command = "ruff"
+args = ["server", "--preview"]
+
+# Docker
+[language-server.docker-langserver]
+command = "docker-langserver"
+args = ["--stdio"]
+
+# YAML
+[language-server.yaml-language-server]
+command = "yaml-language-server"
+args = ["--stdio"]
+
+[language-server.yaml-language-server.config.yaml]
+format = { enable = true }
+validation = true
+
+[language-server.yaml-language-server.config.yaml.schemas]
+"https://json.schemastore.org/github-workflow.json" = ".github/workflows/*.{yml,yaml}"
+"https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json" = "docker-compose*.{yml,yaml}"
+"https://json.schemastore.org/kustomization.json" = "kustomization.{yml,yaml}"
+
+# =============================================================================
+# LANGUAGES
+# =============================================================================
+
+# TypeScript
+[[language]]
+name = "typescript"
+language-servers = ["scls", "typescript-language-server", "eslint", "tailwindcss-ls"]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+
+# TSX
+[[language]]
+name = "tsx"
+language-servers = ["scls", "typescript-language-server", "eslint", "tailwindcss-ls"]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+
+# JavaScript
+[[language]]
+name = "javascript"
+language-servers = ["scls", "typescript-language-server", "eslint", "tailwindcss-ls"]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "javascript"] }
+
+# JSX
+[[language]]
+name = "jsx"
+language-servers = ["scls", "typescript-language-server", "eslint", "tailwindcss-ls"]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "javascript"] }
+
+# Svelte
+[[language]]
+name = "svelte"
+language-servers = ["scls", "svelteserver", "eslint", "tailwindcss-ls"]
+auto-format = true
+formatter = { command = "prettier", args = ["--plugin", "prettier-plugin-svelte", "--parser", "svelte"] }
+
+# Go
+[[language]]
+name = "go"
+language-servers = ["scls", "gopls", "golangci-lint-lsp"]
+auto-format = true
+formatter = { command = "goimports" }
+
+# Python
+[[language]]
+name = "python"
+language-servers = ["scls", "basedpyright", "ruff"]
+auto-format = true
+formatter = { command = "ruff", args = ["format", "-"] }
+
+# JSON
+[[language]]
+name = "json"
+language-servers = ["vscode-json-language-server"]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "json"] }
+
+# TOML
+[[language]]
+name = "toml"
+language-servers = ["taplo"]
+auto-format = true
+formatter = { command = "taplo", args = ["fmt", "-"] }
+
+# YAML
+[[language]]
+name = "yaml"
+language-servers = ["yaml-language-server"]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "yaml"] }
+
+# Dockerfile
+[[language]]
+name = "dockerfile"
+language-servers = ["docker-langserver"]
+auto-format = true
+
+# Prisma
+[[language]]
+name = "prisma"
+scope = "source.prisma"
+file-types = ["prisma"]
+roots = ["package.json", "package-lock.json"]
+comment-token = "//"
+language-servers = ["prisma-language-server"]
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+[language-server.prisma-language-server]
+command = "prisma-language-server"
+args = ["--stdio"]
+
+# Markdown
+[[language]]
+name = "markdown"
+language-servers = ["marksman"]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "markdown"] }
+
+# CSS
+[[language]]
+name = "css"
+language-servers = ["vscode-css-language-server", "tailwindcss-ls"]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "css"] }
+
+# SCSS
+[[language]]
+name = "scss"
+language-servers = ["vscode-css-language-server"]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "scss"] }
+
+# HTML
+[[language]]
+name = "html"
+language-servers = ["vscode-html-language-server", "tailwindcss-ls"]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "html"] }
+
+# Stub language para completion universal
+[[language]]
+name = "stub"
+scope = "text.stub"
+file-types = []
+shebangs = []
+roots = []
+auto-format = false
+language-servers = ["scls"]
