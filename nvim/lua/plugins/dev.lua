@@ -1,32 +1,10 @@
 return {
   {
-    "supermaven-inc/supermaven-nvim",
-    event = "VeryLazy",
-    opts = function(_, opts)
-      require("supermaven-nvim.completion_preview").suggestion_group = "SupermavenSuggestion"
-
-      opts.ai_accept = function()
-        local suggestion = require("supermaven-nvim.completion_preview")
-        if suggestion.has_suggestion() then
-          LazyVim.create_undo()
-          vim.schedule(function()
-            suggestion.on_accept_suggestion()
-          end)
-          return true
-        end
-      end
-
-      return opts
-    end,
-    config = function(_, opts)
-      require("supermaven-nvim").setup(opts)
-    end,
-  },
-  {
     "hrsh7th/nvim-cmp",
-    dependencies = { "hrsh7th/cmp-emoji" },
+    dependencies = { "hrsh7th/cmp-emoji", "L3MON4D3/LuaSnip" },
     opts = function(_, opts)
       opts.sources = vim.list_extend({
+        { name = "copilot" }, -- GitHub Copilot
         { name = "nvim_lsp" },
         { name = "luasnip" },
         { name = "path" },
@@ -37,6 +15,14 @@ return {
 
       opts.completion = opts.completion or {}
       opts.completion.completeopt = "menu,menuone,noinsert"
+
+      -- Mapeamento de teclas
+      local cmp = require("cmp")
+      opts.mapping = {
+        ["<Tab>"] = cmp.mapping.select_next_item(),
+        ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+      }
 
       return opts
     end,
@@ -123,11 +109,6 @@ return {
     "stevearc/conform.nvim",
     event = "BufWritePre",
     opts = {
-      format_on_save = {
-        async = false,
-        timeout_ms = 3000,
-        lsp_format = "fallback",
-      },
       formatters_by_ft = {
         lua = { "stylua" },
         javascript = { "prettierd" },
@@ -166,5 +147,50 @@ return {
     opts = {
       stats = { enabled = false },
     },
+  },
+  {
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    config = function()
+      require("toggleterm").setup({
+        size = 20,
+        open_mapping = [[<leader>t]],
+        hide_numbers = true,
+        shade_filetypes = {},
+        shade_terminals = true,
+        shading_factor = 2,
+        start_in_insert = true,
+        insert_mappings = true,
+        persist_size = true,
+        direction = "float",
+        close_on_exit = true,
+        shell = vim.o.shell,
+      })
+    end,
+  },
+  {
+    "mikavilpas/yazi.nvim",
+    version = "*",
+    event = "VeryLazy",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      open_for_directories = false,
+      keymaps = { show_help = "<F1>" },
+    },
+    init = function()
+      vim.g.loaded_netrwPlugin = 1
+    end,
+  },
+  {
+    "mgierada/lazydocker.nvim",
+    dependencies = { "akinsho/toggleterm.nvim" },
+    event = "BufRead",
+    config = function()
+      require("lazydocker").setup({
+        border = "curved", -- "single" | "double" | "shadow" | "curved"
+        width = 0.9, -- 0-1 para percentual
+        height = 0.9, -- 0-1 para percentual
+      })
+    end,
   },
 }
