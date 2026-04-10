@@ -1,0 +1,28 @@
+customCommands:
+  - key: "<c-a>"
+    description: "Select AI commit message"
+    context: "files"
+    output: terminal
+    command: |
+      if [ "{{.Form.Action}}" = "edit" ]; then
+        echo "{{.Form.Msg}}" > .git/COMMIT_EDITMSG
+        nvim .git/COMMIT_EDITMSG
+        [ -s .git/COMMIT_EDITMSG ] && git commit -F .git/COMMIT_EDITMSG || echo "Commit cancelled (empty message)"
+      else
+        git commit -m "{{.Form.Msg}}"
+      fi
+    prompts:
+      - type: "menuFromCommand"
+        title: "AI Commit Messages"
+        key: "Msg"
+        command: "lazycommit commit"
+        valueFormat: "{{ . }}"
+        labelFormat: "{{ . }}"
+      - type: "menu"
+        title: "Choose action"
+        key: "Action"
+        options:
+          - name: "Direct commit"
+            value: "direct"
+          - name: "Edit before commit"
+            value: "edit"
