@@ -217,4 +217,10 @@ return {
       })
     end,
   },
+  {
+    "spacedentist/resolve.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {},
+  },
+  { "nvim-tree/nvim-web-devicons", opts = {} },
 }

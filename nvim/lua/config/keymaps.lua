@@ -100,6 +100,7 @@ vim.keymap.set("n", "<C-w>", ":bd<CR>", { desc = "Close buffer" })
 -- 🧠 SELECT ALL (CTRL + A)
 -- ========================
 vim.keymap.set("n", "<C-a>", "ggVG", { desc = "Select all" })
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
 
 -- ========================
 -- 📦 WHICH-KEY GROUPS
