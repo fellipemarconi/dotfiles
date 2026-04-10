@@ -95,12 +95,47 @@ vim.keymap.set("n", "<A-S-Down>", ":resize +2<CR>", { desc = "Resize down" })
 -- ========================
 vim.keymap.set("n", "<Tab>", ":bnext<CR>", { desc = "Next buffer" })
 vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", { desc = "Previous buffer" })
-vim.keymap.set("n", "<C-w>", ":bd<CR>", { desc = "Close buffer" })
 -- ========================
 -- 🧠 SELECT ALL (CTRL + A)
 -- ========================
 vim.keymap.set("n", "<C-a>", "ggVG", { desc = "Select all" })
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
+
+-- ========================
+-- 🧹 FECHAR BUFFER (CTRL + D)
+-- ========================
+_G.close_buffer = function()
+  local valid_buffers = 0
+
+  for _, b in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_valid(b) and vim.bo[b].buflisted then
+      local buftype = vim.bo[b].buftype
+      local filetype = vim.bo[b].filetype
+      local bufname = vim.api.nvim_buf_get_name(b)
+
+      if buftype == "" and filetype ~= "snacks_dashboard" and bufname ~= "" then
+        valid_buffers = valid_buffers + 1
+      end
+    end
+  end
+
+  local should_open_dashboard = (valid_buffers <= 1)
+
+  require("snacks").bufdelete()
+
+  if should_open_dashboard then
+    vim.schedule(function()
+      vim.schedule(function()
+        local buf = vim.api.nvim_get_current_buf()
+        local win = vim.api.nvim_get_current_win()
+        ---@diagnostic disable-next-line: missing-fields
+        require("snacks.dashboard").open({ buf = buf, win = win })
+      end)
+    end)
+  end
+end
+
+vim.keymap.set("n", "<leader>bd", close_buffer, { desc = "Kill buffer" })
 
 -- ========================
 -- 📦 WHICH-KEY GROUPS
