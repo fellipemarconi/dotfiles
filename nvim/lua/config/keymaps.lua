@@ -143,6 +143,13 @@ end
 vim.keymap.set("n", "<leader>bd", close_buffer, { desc = "Kill buffer" })
 
 -- ========================
+-- MUSIC PLAYER
+-- ========================
+vim.keymap.set("n", "<leader>mm", function()
+  require("mpv").toggle_player()
+end, { desc = "MPV Toggle" })
+
+-- ========================
 -- 📦 WHICH-KEY GROUPS
 -- ========================
 local wk = require("which-key")

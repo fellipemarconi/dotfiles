@@ -273,4 +273,5 @@ return {
       })
     end,
   },
+  { "tamton-aquib/mpv.nvim", config = true },
 }
