@@ -261,6 +261,14 @@ return {
             keymap = "<leader>pp",
             border_color = "#a855f7",
           },
+
+          ssh = {
+            type = "terminal",
+            command = "lazyssh",
+            title = " SSH ",
+            keymap = "<leader>ls",
+            border_color = "#2563eb",
+          },
         },
       })
     end,

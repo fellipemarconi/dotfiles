@@ -153,7 +153,7 @@ wk.add({
 })
 
 wk.add({
-  { "<leader>l", group = "🐳 LazyDocker" },
+  { "<leader>l", group = "LazyTools" },
   {
     "<leader>ld",
     function()
