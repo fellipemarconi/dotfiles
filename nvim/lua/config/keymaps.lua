@@ -101,6 +101,11 @@ vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", { desc = "Previous buffer" })
 vim.keymap.set("n", "<C-a>", "ggVG", { desc = "Select all" })
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to Definition" })
 
+-- =======================
+-- RENAME
+-- =======================
+vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "Rename symbol" })
+
 -- ========================
 -- 🧹 FECHAR BUFFER (CTRL + D)
 -- ========================

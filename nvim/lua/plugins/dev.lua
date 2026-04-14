@@ -223,4 +223,46 @@ return {
     opts = {},
   },
   { "nvim-tree/nvim-web-devicons", opts = {} },
+  {
+    "Maxteabag/sqlit.nvim",
+    opts = {},
+    keys = {
+      {
+        "<leader>D",
+        function()
+          require("sqlit").open()
+        end,
+        desc = "Database (sqlit)",
+      },
+    },
+  },
+  {
+    "salkhalil/summon.nvim",
+    config = function()
+      require("summon").setup({
+        width = 0.9,
+        height = 0.9,
+        border = "rounded",
+        close_keymap = "q",
+
+        commands = {
+          redis = {
+            type = "terminal",
+            command = "redis-tui",
+            title = " Redis ",
+            keymap = "<leader>rr",
+            border_color = "#ef4444",
+          },
+
+          http = {
+            type = "terminal",
+            command = "posting",
+            title = " HTTP ",
+            keymap = "<leader>pp",
+            border_color = "#a855f7",
+          },
+        },
+      })
+    end,
+  },
 }
