@@ -95,7 +95,7 @@ return {
         typescript = { "eslint_d" },
         python = { "ruff" },
         lua = { "luacheck" },
-        go = { "golangci_lint" },
+        go = { "golangcilint" },
       }
 
       vim.api.nvim_create_autocmd("BufWritePost", {
@@ -243,7 +243,7 @@ return {
         width = 0.9,
         height = 0.9,
         border = "rounded",
-        close_keymap = "q",
+        close_keymap = "<Esc><Esc>",
 
         commands = {
           redis = {
