@@ -187,7 +187,7 @@ return {
         insert_mappings = true,
         persist_size = true,
         direction = "float",
-        close_on_exit = true,
+        close_on_exit = false,
         shell = vim.o.shell,
       })
     end,
@@ -254,14 +254,6 @@ return {
             border_color = "#ef4444",
           },
 
-          http = {
-            type = "terminal",
-            command = "posting",
-            title = " HTTP ",
-            keymap = "<leader>pp",
-            border_color = "#a855f7",
-          },
-
           ssh = {
             type = "terminal",
             command = "lazyssh",
@@ -274,4 +266,13 @@ return {
     end,
   },
   { "tamton-aquib/mpv.nvim", config = true },
+  {
+    "NachoNievaG/atac.nvim",
+    dependencies = { "akinsho/toggleterm.nvim" },
+    config = function()
+      require("atac").setup({
+        dir = "~/Documents/atac-collection",
+      })
+    end,
+  },
 }

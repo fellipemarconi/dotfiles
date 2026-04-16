@@ -82,6 +82,9 @@ vim.keymap.set("v", "<A-Down>", ":m '>+1<CR>gv=gv")
 -- 🖥️ TERMINAL
 -- ========================
 vim.keymap.set("t", "<C-\\>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
+vim.keymap.set("n", "<leader>a", "<cmd>Atac<CR>", { desc = "Atac" })
+vim.keymap.set("t", "<leader>a", [[<C-\><C-n><cmd>Atac<CR>]])
+
 -- ========================
 -- 📏 RESIZE JANELAS (ALT + SHIFT + SETAS)
 -- ========================
