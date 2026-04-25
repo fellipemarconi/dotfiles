@@ -1,0 +1,58 @@
+add_newline = false
+
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$cmd_duration\
+$line_break\
+$character
+"""
+
+###################################
+# USER / HOST
+###################################
+[username]
+style_user = "bold purple"
+style_root = "bold red"
+format = "[$user]($style) "
+disabled = false
+
+[hostname]
+style = "purple"
+format = "[@$hostname]($style) "
+disabled = true
+
+###################################
+# DIRECTORY
+###################################
+[directory]
+style = "bold lavender"
+truncation_length = 3
+truncate_to_repo = true
+
+###################################
+# GIT
+###################################
+[git_branch]
+symbol = " "
+style = "bold mauve"
+
+[git_status]
+style = "red"
+
+###################################
+# CMD TIME
+###################################
+[cmd_duration]
+min_time = 500
+format = "[⏱ $duration](yellow) "
+
+###################################
+# PROMPT
+###################################
+[character]
+success_symbol = "[❯](bold purple)"
+error_symbol = "[❯](bold red)"

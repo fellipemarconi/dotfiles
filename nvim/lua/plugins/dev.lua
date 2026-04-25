@@ -265,13 +265,12 @@ return {
       })
     end,
   },
-  { "tamton-aquib/mpv.nvim", config = true },
   {
     "NachoNievaG/atac.nvim",
     dependencies = { "akinsho/toggleterm.nvim" },
     config = function()
       require("atac").setup({
-        dir = "~/Documents/atac-collection",
+        dir = vim.fn.expand("~/Projects/atac-collection"),
       })
     end,
   },

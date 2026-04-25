@@ -14,27 +14,22 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term alacritty # Your preferred application launcher
-set $menu wmenu-run
-
-include /etc/sway/config-vars.d/*
+set $term kitty
+# Your preferred application launcher
+set $menu wmenu-run -N 1e1e2ee6 -n cdd6f4 -S cba6f7 -s 1e1e2e -M 1e1e2ee6 -m cdd6f4 -f "JetBrainsMono Nerd Font 11"
+# Flameshot
+set $flameshot flameshot gui
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-# This is commented in Debian, because the Sway wallpaper files are in a separate
-# package `sway-backgrounds`. Installing this package drops a config file to
-# /etc/sway/config.d/
+output * bg /home/aniks/Pictures/1381020.png fill
 #
 # Example configuration:
 #
-   output HDMI-A-1 { primary resolution 1920x1080@100Hz position 0,0 }
-
-   output eDP-1 resolution 1920x1080 position 1920,0
+output DP-1 mode 1920x1080@144Hz
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-
-xwayland enable
 
 ### Idle configuration
 #
@@ -53,20 +48,23 @@ xwayland enable
 #
 # Example configuration:
 #
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#   input type:touchpad {
 #       dwt enabled
 #       tap enabled
 #       natural_scroll enabled
 #       middle_emulation enabled
 #   }
 #
-# You can get the names of your inputs by running: swaymsg -t get_inputs
+#   input type:keyboard {
+#       xkb_layout "eu"
+#   }
+#
+# You can also configure each device individually.
 # Read `man 5 sway-input` for more information about this section.
-  input * {
-    xkb_layout br
-    xkb_variant abnt2
-  }
-
+input * {
+    accel_profile flat
+    pointer_accel 0
+}
 ### Key bindings
 #
 # Basics:
@@ -79,6 +77,9 @@ xwayland enable
 
     # Start your launcher
     bindsym $mod+d exec $menu
+
+    # Start Flameshot
+    bindsym $mod+p exec $flameshot
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -216,7 +217,7 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     # Special key to take a screenshot with grim
-    bindsym Print exec grim -g "$(slurp)" - | wl-copy
+    bindsym Print exec grim
 
 #
 # Status Bar:
@@ -224,16 +225,23 @@ bindsym $mod+r mode "resize"
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+    font pango:JetBrainsMono Nerd Font 9
 
     colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
+        background #0e0e0ef2
+        statusline #cdd6f4
+
+        focused_workspace  #cba6f7 #cba6f7 #1e1e2e
+        active_workspace   #6c7086 #6c7086 #1e1e2e
+        inactive_workspace #1e1e2e #1e1e2e #6c7086
+        urgent_workspace   #f38ba8 #f38ba8 #1e1e2e
     }
+
+    status_command i3status-rs ~/.config/i3status-rust/config.toml
 }
+client.focused          #cba6f7dd #cba6f7dd #1e1e2edd #cba6f7dd #cba6f7dd
+client.unfocused        #1e1e2eaa #1e1e2eaa #6c7086aa #1e1e2eaa #1e1e2eaa
+client.focused_inactive #313244aa #313244aa #cba6f7aa #313244aa #313244aa
+client.urgent           #f38ba8dd #f38ba8dd #1e1e2edd #f38ba8dd #f38ba8dd
 
 include /etc/sway/config.d/*
