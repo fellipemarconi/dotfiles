@@ -1,132 +1,135 @@
-// Zed settings
-//
-// For information on how to configure Zed, see the Zed
-// documentation: https://zed.dev/docs/configuring-zed
-//
-// To see all of Zed's default settings without changing your
-// custom settings, run `zed: open default settings` from the
-// command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "git_panel": {
+    "dock": "left",
+  },
+  "collaboration_panel": {
+    "button": false,
+  },
+  "debugger": {
+    "dock": "left",
+  },
+  "proxy": "",
   "edit_predictions": {
-    "provider": "zed"
+    "provider": "copilot",
   },
   "agent_servers": {
-    "claude-acp": {
-      "type": "registry"
-    }
-  },
-  "buffer_font_family": "JetBrainsMono Nerd Font Mono",
-  "ui_font_family": "DankMono Nerd Font",
-  "prettier": {
-    "allowed": true,
+    "github-copilot-cli": {
+      "type": "registry",
+    },
   },
   "agent": {
-    "favorite_models": [],
+    "sidebar_side": "right",
+    "button": false,
+    "dock": "right",
     "default_profile": "write",
-    "model_parameters": []
+
+    "commit_message_model": {
+      "provider": "copilot_chat",
+      "model": "claude-4-5-haiku",
+    },
   },
-  "vim_mode": false,
-  "icon_theme": "Warm Charmed Icons",
-  "ui_font_size": 16,
-  "buffer_font_size": 14,
-  "theme": {
-    "mode": "dark",
-    "light": "macOS Classic Light",
-    "dark": "Catppuccin Mocha (Blur) [Light]",
+  "icon_theme": "Material Icon Theme",
+  "vim_mode": true,
+  "base_keymap": "VSCode",
+  "theme": "Everforest Dark Hard (blur)",
+  "buffer_font_family": "JetBrainsMono Nerd Font",
+  "ui_font_family": "JetBrainsMono Nerd Font",
+  "buffer_font_size": 13,
+  "ui_font_size": 13,
+  "buffer_line_height": { "custom": 1.7 },
+  "relative_line_numbers": "enabled",
+  "cursor_shape": "block",
+  "cursor_blink": false,
+  "current_line_highlight": "gutter",
+  "scrollbar": { "show": "never" },
+  "gutter": { "folds": false, "runnables": false, "min_line_number_digits": 0 },
+  "indent_guides": { "enabled": true },
+  "project_panel": {
+    "dock": "left",
+    "hide_root": true,
+    "git_status": false,
+    "sticky_scroll": false,
+    "auto_fold_dirs": false,
+    "scrollbar": { "show": "never" },
+    "indent_guides": { "show": "never" },
   },
-  "theme_overrides": {
-    "Catppuccin Mocha (Blur) [Light]": {
-      "players": [
-        {
-          "cursor": "#bd9dff",
+  "outline_panel": { "button": false, "indent_guides": { "show": "never" } },
+  "toolbar": { "quick_actions": false },
+  "tab_bar": { "show": true },
+  "title_bar": {
+    "show_branch_name": true,
+    "show_project_items": true,
+    "show_user_menu": true,
+    "show_onboarding_banner": true,
+  },
+  "status_bar": { "experimental.show": true },
+  "show_whitespaces": "none",
+  "tab_size": 2,
+  "auto_indent": "syntax_aware",
+  "selection_highlight": false,
+  "hover_popover_enabled": true,
+  "inlay_hints": { "enabled": true },
+  "format_on_save": "on",
+  "autosave": { "after_delay": { "milliseconds": 1000 } },
+  "prettier": { "allowed": true },
+  "terminal": {
+    "working_directory": "current_project_directory",
+    "dock": "right",
+    "default_width": 380,
+    "font_family": "JetBrainsMono Nerd Font",
+    "font_size": 13,
+    "line_height": { "custom": 1.7 },
+  },
+  "experimental.theme_overrides": {
+    "background.appearance": "transparent",
+
+    "background": "#141b1ef5",
+
+    "editor.background": "#141b1ee8",
+
+    "panel.background": "#141b1ee8",
+
+    "surface.background": "#141b1ee8",
+
+    "terminal.background": "#141b1ee8",
+
+    "tab_bar.background": "#141b1ef0",
+
+    "title_bar.background": "#141b1ef0",
+
+    "status_bar.background": "#141b1ef0",
+  },
+  "languages": {
+    "Go": { "formatter": { "external": { "command": "gofumpt" } } },
+    "Python": {
+      "formatter": {
+        "external": { "command": "ruff", "arguments": ["format", "-"] },
+      },
+    },
+    "TypeScript": {
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": ["--stdin-filepath", "{buffer_path}"],
         },
-      ],
-      "syntax": {
-        "comments": {
-          "font_style": "italic",
-        },
-        "comment.doc": {
-          "font_style": "italic",
+      },
+    },
+    "TSX": {
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": ["--stdin-filepath", "{buffer_path}"],
         },
       },
     },
   },
-  "title_bar": {
-    "show_onboarding_banner": false,
-    "show_project_items": false,
-    "show_branch_name": false,
-    "show_user_menu": false,
-  },
-  "tab_bar": {
-    "show": true,
-  },
-  "toolbar": {
-    "quick_actions": false,
-  },
-  "status_bar": {
-    "experimental.show": false,
-  },
-  "project_panel": {
-    "dock": "left",
-    "default_width": 400,
-    "hide_root": true,
-    "auto_fold_dirs": false,
-    "starts_open": false,
-    "git_status": false,
-    "sticky_scroll": false,
-    "scrollbar": {
-      "show": "never",
-    },
-    "indent_guides": {
-      "show": "never",
-    },
-  },
-  "outline_panel": {
-    "default_width": 300,
-    "indent_guides": {
-      "show": "never",
-    },
-  },
-  "file_finder": {
-    "modal_max_width": "large",
-  },
-  "scrollbar": {
-    "show": "system",
-  },
-  "gutter": {
-    "min_line_number_digits": 0,
-    "folds": false,
-    "runnables": false,
-  },
-  "indent_guides": {
-    "enabled": false,
-  },
-  "buffer_line_height": {
-    "custom": 2,
-  },
-  "agent_buffer_font_size": 14,
-  "multi_cursor_modifier": "cmd_or_ctrl",
-  "cursor_shape": "block",
-  "cursor_blink": false,
-  "selection_highlight": false,
-  "drag_and_drop_selection": {
-    "enabled": false,
-  },
-  "seed_search_query_from_cursor": "never",
-  "current_line_highlight": "none",
-  "show_whitespaces": "none",
-  "tab_size": 2,
-  "auto_indent": "syntax_aware",
-  "auto_indent_on_paste": true,
-  "show_completions_on_input": true,
-  "show_completion_documentation": true,
-  "inline_code_actions": true,
-  "lsp_document_colors": "none",
-  "hover_popover_enabled": true,
-  "format_on_save": "on",
-  "autosave": {
-    "after_delay": {
-      "milliseconds": 1000,
+  "lsp": {
+    "gopls": {
+      "initialization_options": {
+        "gofumpt": true,
+        "staticcheck": true,
+        "usePlaceholders": true,
+      },
     },
   },
 }

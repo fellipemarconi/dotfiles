@@ -1,0 +1,66 @@
+[
+  {
+    "context": "Editor && VimControl",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == normal && !menu",
+    "bindings": {
+      "space space": "file_finder::Toggle",
+
+      "space ,": "tab_switcher::Toggle",
+
+      "space e": "workspace::ToggleLeftDock",
+
+      "space t": "terminal_panel::ToggleFocus",
+
+      "space s g": "pane::DeploySearch",
+
+      "space g g": "git_panel::Toggle",
+
+      "space c a": "editor::ToggleCodeActions",
+
+      "space c r": "editor::Rename",
+
+      "space c s": "outline::Toggle",
+
+      "space g d": "editor::GoToDefinition",
+
+      "space g r": "editor::FindAllReferences",
+
+      "space g i": "editor::GoToImplementation",
+
+      "space b d": "pane::CloseActiveItem",
+
+      "space b o": "pane::CloseOtherItems",
+
+      "shift-k": "editor::Hover",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert && !menu",
+    "bindings": { "j j": "vim::NormalBefore" },
+  },
+  {
+    "context": "Editor && vim_mode == visual",
+    "bindings": {
+      "shift-j": "editor::MoveLineDown",
+      "shift-k": "editor::MoveLineUp",
+    },
+  },
+]
+
